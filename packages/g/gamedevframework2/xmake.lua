@@ -17,7 +17,7 @@ package("gamedevframework2")
     end)
 
     on_component("graphics", function (package, component)
-        component:add("links", "gf2core0", "gf2graphics0")
+        component:add("links", "gf2graphics0")
         component:add("deps", "core")
     end)
 
@@ -53,11 +53,14 @@ package("gamedevframework2")
     end)
 
     on_load("windows", "linux", function (package)
+        local links_order = {"gf2core0"}
         package:add("components", "core")
         package:add("deps", "fmt", "freetype", "pugixml", "stb", "zlib")
+        package:add("links", "")
 
         if package:config("graphics") then
             package:add("deps", "harfbuzz", "libsdl", "vk-bootstrap", "volk", "vulkan-headers", "vulkan-memory-allocator")
+            table.insert(links_order, "gf2graphics0")
         end
 
         if package:config("audio") then
@@ -81,6 +84,8 @@ package("gamedevframework2")
                 end
             end
         end
+
+        package:add_linkorders(links_order)
 
     end)
 
