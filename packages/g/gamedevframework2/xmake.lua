@@ -17,7 +17,7 @@ package("gamedevframework2")
     end)
 
     on_component("graphics", function (package, component)
-        component:add("links", "gf2graphics0")
+        component:add("links", "gf2core0", "gf2graphics0")
         component:add("deps", "core")
     end)
 
